@@ -81,6 +81,8 @@
 
 #include "yacreader_comics_views_manager.h"
 
+#include "theme.h"
+
 #include "QsLog.h"
 
 #ifdef Q_OS_WIN
@@ -242,7 +244,7 @@ void LibraryWindow::doLayout()
 
     //FINAL LAYOUT-------------------------------------------------------------
 
-    comicsViewsManager = new YACReaderComicsViewsManager(settings, this);
+    comicsViewsManager = new YACReaderComicsViewsManager(settings, Theme::currentTheme(), this);
 
     sHorizontal->addWidget(sideBar);
 #ifndef Q_OS_MAC
