@@ -122,10 +122,10 @@ void LibraryWindow::setupUI()
     createActions();
     doModels();
 
+    doDialogs();
     doLayout();
     createToolBars();
     createMenus();
-    doDialogs();
 
     navigationController = new YACReaderNavigationController(this, comicsViewsManager);
 
