@@ -176,12 +176,9 @@ void LibraryWindow::changeEvent(QEvent *event)
 void LibraryWindow::doLayout()
 {
     //LAYOUT ELEMENTS------------------------------------------------------------
-    auto sHorizontal = new QSplitter(Qt::Horizontal); //spliter principal
-#ifdef Q_OS_MAC
-    sHorizontal->setStyleSheet("QSplitter::handle{image:none;background-color:#B8B8B8;} QSplitter::handle:vertical {height:1px;}");
-#else
-    sHorizontal->setStyleSheet("QSplitter::handle:vertical {height:4px;}");
-#endif
+    auto sHorizontal = new QSplitter(Qt::Horizontal);  //spliter principal
+
+    sHorizontal->setStyleSheet(theme.mainWindowHorizontalSpliterStyle);
 
     //TOOLBARS-------------------------------------------------------------------
     //---------------------------------------------------------------------------
@@ -272,9 +269,9 @@ void LibraryWindow::doLayout()
     connect(noLibrariesWidget, SIGNAL(addExistingLibrary()), this, SLOT(showAddLibrary()));
 
     //collapsible disabled in macosx (only temporaly)
-#ifdef Q_OS_MAC
-    sHorizontal->setCollapsible(0, false);
-#endif
+    if (theme.isMacosNative) {
+        sHorizontal->setCollapsible(0,false);
+    }
 }
 
 void LibraryWindow::doDialogs()
@@ -1708,7 +1705,8 @@ void LibraryWindow::createLibrary()
 void LibraryWindow::create(QString source, QString dest, QString name)
 {
     QLOG_INFO() << QString("About to create a library from '%1' to '%2' with name '%3'").arg(source).arg(dest).arg(name);
-    libraryCreator->createLibrary(source, dest);
+
+    libraryCreator->createLibrary(source,dest);
     libraryCreator->start();
     _lastAdded = name;
     _sourceLastAdded = source;
@@ -2242,9 +2240,10 @@ void LibraryWindow::showNoLibrariesWidget()
 
 void LibraryWindow::showRootWidget()
 {
-#ifndef Q_OS_MAC
-    libraryToolBar->setDisabled(false);
-#endif
+    if (!theme.isMacosNative) {
+        libraryToolBar->setDisabled(false);
+    }
+
     libraryToolBar->searchEdit->setEnabled(true);
     mainWidget->setCurrentIndex(0);
 }
@@ -2253,9 +2252,11 @@ void LibraryWindow::showImportingWidget()
 {
     disableAllActions();
     importWidget->clear();
-#ifndef Q_OS_MAC
-    libraryToolBar->setDisabled(true);
-#endif
+
+    if (!theme.isMacosNative) {
+        libraryToolBar->setDisabled(true);
+    }
+
     libraryToolBar->searchEdit->setDisabled(true);
     mainWidget->setCurrentIndex(2);
 }
