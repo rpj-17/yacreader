@@ -13,11 +13,11 @@ class OptionsDialog : public YACReaderOptionsDialog
 {
     Q_OBJECT
 public:
-    OptionsDialog(QWidget * parent = nullptr);
+    OptionsDialog(QWidget *parent = nullptr);
 
 public slots:
     void editApiKey();
-    void restoreOptions(QSettings * settings) override;
+    void restoreOptions(QSettings *settings) override;
 
 private slots:
     void useBackgroundImageCheckClicked(bool checked);
@@ -28,14 +28,14 @@ private slots:
     void resetToDefaults();
 
 private:
-    QCheckBox * useBackgroundImageCheck;
-    QCheckBox * useCurrentComicCoverCheck;
-    QCheckBox * showCurrentComicBanner;
-    QSlider * backgroundImageOpacitySlider;
-    QSlider * backgroundImageBlurRadiusSlider;
-    QLabel * opacityLabel;
-    QLabel * blurLabel;
-    QPushButton * resetButton;
+    QCheckBox *useBackgroundImageCheck;
+    QCheckBox *useCurrentComicCoverCheck;
+    QCheckBox *showCurrentComicBanner;
+    QSlider *backgroundImageOpacitySlider;
+    QSlider *backgroundImageBlurRadiusSlider;
+    QLabel *opacityLabel;
+    QLabel *blurLabel;
+    QPushButton *resetButton;
 };
 
 #endif
